@@ -16,8 +16,10 @@ offset<-(as.POSIXct(power$Date[1])-power$Time[1])+0.333334
 offset<-c(rep(offset,1440),rep(offset+1,1440))
 power<-mutate(power, Time = Time + offset*60*60*24)
 
-#Generate plot 1
-png(filename = "plot1.png", width = 480, height = 480)
-par(mar = c(6,6,5,4),cex.axis=0.75,cex.lab=0.75,cex.main=.9,lab=c(3,6,1),yaxp=c(0,1200,5))
-hist(power$GlobalActivePower,col='red',main="Global Active Power",xlab="Global Active Power (kilowatts)")
-dev.off()
+
+#Generate plot 2 - A line plot 
+#png(filename = "plot2.png", width = 480, height = 480)
+par(mar = c(6,6,5,4),cex.axis=0.75,cex.lab=0.75,cex.main=.9)
+plot(power$GlobalActivePower~power$Time,ylab="Global Active Power (kilowatts)",xlab="",
+     type="l")
+#dev.off()
