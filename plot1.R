@@ -10,8 +10,13 @@ power<-tbl_df(power)
 power<-filter(power, Date =="1/2/2007" | Date == "2/2/2007")
 power<-mutate(power, Date = as.Date(Date,"%d/%m/%Y"))
 power<-mutate(power, Time = as.POSIXct(strptime(Time,"%H:%M:%S")))
+
 #Fix date offset in the time field
 offset<-(as.POSIXct(power$Date[1])-power$Time[1])+0.333334
 power<-mutate(power, Time = Time + offset)
 
-
+#Generate plot 1
+png(filename = "plot1.png", width = 480, height = 480, bg = "white", untis = "px")
+par(mar = c(6,6,5,4),cex.axis=0.75,cex.lab=0.75,cex.main=.9,lab=c(3,6,1),yaxp=c(0,1200,5))
+hist(power$GlobalActivePower,col='red',main="Global Active Power",xlab="Global Active Power (kilowatts)")
+dev.off()
